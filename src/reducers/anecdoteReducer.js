@@ -9,6 +9,10 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
+const sortAnecs = (anecdotes) => {
+	return anecdotes.sort((a , b) => b.votes - a.votes);
+}
+
 const asObject = (anecdote) => {
 	return {
 		content: anecdote,
@@ -27,6 +31,8 @@ const reducer = (state = initialState, action) => {
 		case 'NEW_ANECDOTE':
 			return [...state, action.data]
 		case 'VOTE':
+			//when a vote is made state changes(votes increase) and  the blogs are sorted
+			sortAnecs(state);
 			const id = action.data.id;
 			const anec_to_add_vote = state.find(anec => anec.id === id);
 			//console.log("this the anec to vote for", anec_to_add_vote)
