@@ -46,7 +46,7 @@ export const vote_for = (id) => {
 	}
 }
 
-export const newAnec = () => {
+export const newAnec = (content) => {
 	return {
 		type: 'NEW_ANECDOTE',
 		data : {
