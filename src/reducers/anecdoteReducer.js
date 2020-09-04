@@ -5,9 +5,9 @@ const anecdotesAtStart = [
 	'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
 	'Premature optimization is the root of all evil.',
 	'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
+];
 
-const getId = () => (100000 * Math.random()).toFixed(0)
+const getId = () => (100000 * Math.random()).toFixed(0);
 
 const asObject = (anecdote) => {
 	return {
@@ -20,10 +20,30 @@ const asObject = (anecdote) => {
 const initialState = anecdotesAtStart.map(asObject)
 
 const reducer = (state = initialState, action) => {
-	console.log('state now: ', state)
-	console.log('action', action)
+	console.log('state now: ', state);
+	console.log('action', action);
 
+	switch (action.type) {
+		case 'VOTE':
+			const id = action.data.id;
+			const anec_to_add_vote = state.find(anec => anec.id === id);
+			console.log("this the anec to vote for", anec_to_add_vote)
+			const voted_anec = {
+				...anec_to_add_vote, votes: anec_to_add_vote.votes + 1
+			}
+			return state.map(anec => anec.id !== id ? anec : voted_anec);
+	}
 	return state
 }
 
-export default reducer
+export const vote_for = (id) => {
+	return {
+		type: 'VOTE',
+		data: { id }
+	}
+}
+
+
+export default reducer;
+
+//functions that create actions are action creators eg vote_for votes for the anecdote
