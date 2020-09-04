@@ -37,13 +37,24 @@ const reducer = (state = initialState, action) => {
 		default:
 			return state;
 	}
-	return state
+	return state;
 }
 
 export const vote_for = (id) => {
 	return {
 		type: 'VOTE',
 		data: { id }
+	}
+}
+
+export const new_note = () => {
+	return {
+		type: 'NEW_NOTE',
+		data : {
+			content,
+			id: getId(),
+			votes : 0
+		}
 	}
 }
 
