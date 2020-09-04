@@ -9,7 +9,7 @@ const App = () => {
 
 	const vote = (id) => {
 		dispatch(vote_for(id));
-		console.log('vote', id);
+		//console.log('vote', id);
 	}
 
 	return (
