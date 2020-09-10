@@ -9,9 +9,9 @@ const AnecdoteList = () => {
     const anecdotes = useSelector(state => state.anecdotes);
     const dispatch = useDispatch();
 
-    const vote = (id) => {
+    const vote = (id, content) => {
         dispatch(vote_for(id));
-        dispatch(show_notification("this is a test whether it will be shown", 40))
+        dispatch(show_notification(`you voted for ${content}`, 40))
         //console.log('vote', id);
     }
 
@@ -31,7 +31,7 @@ const AnecdoteList = () => {
                     </div>
                     <div>
                         has {anecdote.votes}
-                        <button onClick={() => vote(anecdote.id) && vote}>vote</button>
+                        <button onClick={() => vote(anecdote.id, anecdote.content) }>vote</button>
                     </div>
                 </div>
             )}
