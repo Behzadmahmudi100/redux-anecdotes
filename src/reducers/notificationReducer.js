@@ -1,7 +1,7 @@
 const notificationReducer = (state = null, action) => {
     switch (action.type) {
         case 'SET_NOTIFICATION':
-            return action.data;
+            return state = action.data;
         case 'CLEAR_NOTIFICATION':
             return state;
         default:
@@ -9,11 +9,15 @@ const notificationReducer = (state = null, action) => {
     }
 }
 
-export const show_notification = (message, time) => {
+
+
+export const show_and_remove_notification = (message) => {
     return {
         type: 'SET_NOTIFICATION',
         data: message
     }
+
 }
+
 
 export default notificationReducer;
