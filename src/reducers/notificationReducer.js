@@ -3,7 +3,7 @@ const notificationReducer = (state = null, action) => {
         case 'SET_NOTIFICATION':
             return state = action.data;
         case 'CLEAR_NOTIFICATION':
-            return state;
+            return state = action.data;
         default:
             return state;
     }
@@ -18,7 +18,8 @@ export const show_notification = (message) =>  {
 
 export const hide_notification = () => {
     return {
-        type : 'CLEAR_NOTIFICATION'
+        type : 'CLEAR_NOTIFICATION',
+        data : null
     }
 }
 export default notificationReducer;
