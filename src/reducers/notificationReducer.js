@@ -15,4 +15,10 @@ export const show_notification = (message) =>  {
         data : message
     }    
 }
+
+export const hide_notification = () => {
+    return {
+        type : 'CLEAR_NOTIFICATION'
+    }
+}
 export default notificationReducer;
