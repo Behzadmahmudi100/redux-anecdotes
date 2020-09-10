@@ -9,15 +9,10 @@ const notificationReducer = (state = null, action) => {
     }
 }
 
-
-
-export const show_and_remove_notification = (message) => {
-    return {
-        type: 'SET_NOTIFICATION',
-        data: message
-    }
-
+export const show_notification = (message) =>  {
+    return  {
+        type : 'SET_NOTIFICATION',
+        data : message
+    }    
 }
-
-
 export default notificationReducer;
