@@ -2,14 +2,25 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { vote_for } from '../reducers/anecdoteReducer';
 
+//imported from the notification component
+import {show_notification} from '../reducers/notificationReducer';
+
 const AnecdoteList = () => {
     const anecdotes = useSelector(state => state.anecdotes);
     const dispatch = useDispatch();
 
     const vote = (id) => {
         dispatch(vote_for(id));
+        dispatch(show_notification("this is a test whether it will be shown", 40))
         //console.log('vote', id);
     }
+
+    //creating the action creator for displaying the notification when you vote for an anecdote
+   /* const vote_notification = `you voted for `
+    const show_notification = () => {
+        dispatch()
+    }
+    */
 
     return (
         <div>
@@ -20,7 +31,7 @@ const AnecdoteList = () => {
                     </div>
                     <div>
                         has {anecdote.votes}
-                        <button onClick={() => vote(anecdote.id)}>vote</button>
+                        <button onClick={() => vote(anecdote.id) && vote}>vote</button>
                     </div>
                 </div>
             )}
