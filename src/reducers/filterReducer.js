@@ -1,8 +1,8 @@
 const filterReducer = (state = '', action) => {
-    console.log(action)
-    switch (action.data) {
+    //console.log(action);
+    switch (action.type) {
         case 'FILTER':
-            return action.data.content
+            return action.content
         default:
             return state;
     }
@@ -11,7 +11,7 @@ const filterReducer = (state = '', action) => {
 export let setFilter = content => {
     return {
         type: 'FILTER',
-        data: { content }
+        content
     }
 }
 
