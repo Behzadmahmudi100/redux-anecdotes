@@ -11,17 +11,6 @@ const reducer = (state = [], action) => {
 		case 'NEW_ANECDOTE':
 			return [...state, action.data];
 		case 'VOTE':
-			//when a vote is made state changes(votes increase) and  the blogs are sorted
-			/*
-			sortAnecs(state);
-			const id = action.data.id;
-			const anec_to_add_vote = state.find(anec => anec.id === id);
-			//console.log("this the anec to vote for", anec_to_add_vote)
-			const voted_anec = {
-				...anec_to_add_vote, votes: anec_to_add_vote.votes + 1
-			}
-			return state.map(anec => anec.id !== id ? anec : voted_anec);
-			*/
 			const id = action.data.id;
 			const anecToSort = state.map(anec => anec.id !== id ? anec : action.data);
 			return sortAnecs(anecToSort);
@@ -43,12 +32,6 @@ export const vote_for = (id) => {
 			data: updatedAnec
 		})
 	}
-
-	/*return {
-		type: 'VOTE',
-		data: { id }
-	}
-	*/
 
 }
 
@@ -97,4 +80,17 @@ const asObject = (anecdote) => {
 }
 
 const initialState = anecdotesAtStart.map(asObject)
+*/
+//when a vote is made state changes(votes increase) and  the blogs are sorted.
+// The code below only added votes to the state.
+//the votes did not persisit and thats why when the page was refershed the votes defaulted to zero
+/*
+sortAnecs(state);
+const id = action.data.id;
+const anec_to_add_vote = state.find(anec => anec.id === id);
+//console.log("this the anec to vote for", anec_to_add_vote)
+const voted_anec = {
+	...anec_to_add_vote, votes: anec_to_add_vote.votes + 1
+}
+return state.map(anec => anec.id !== id ? anec : voted_anec);
 */
