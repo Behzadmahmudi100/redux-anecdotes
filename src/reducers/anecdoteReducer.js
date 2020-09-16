@@ -7,7 +7,7 @@ const sortAnecs = (anecdotes) => {
 const reducer = (state = [], action) => {
 	switch (action.type) {
 		case 'INIT_ANECDOTES':
-			return action.data
+			return sortAnecs(action.data)
 		case 'NEW_ANECDOTE':
 			return [...state, action.data];
 		case 'VOTE':
