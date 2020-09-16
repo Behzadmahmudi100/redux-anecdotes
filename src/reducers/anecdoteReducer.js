@@ -5,16 +5,14 @@ const sortAnecs = (anecdotes) => {
 }
 
 const reducer = (state = [], action) => {
-	//console.log('state now: ', state);
-	//console.log('action', action);
-
 	switch (action.type) {
 		case 'INIT_ANECDOTES':
 			return action.data
 		case 'NEW_ANECDOTE':
-			return [...state, action.data]
+			return [...state, action.data];
 		case 'VOTE':
 			//when a vote is made state changes(votes increase) and  the blogs are sorted
+			/*
 			sortAnecs(state);
 			const id = action.data.id;
 			const anec_to_add_vote = state.find(anec => anec.id === id);
@@ -23,24 +21,43 @@ const reducer = (state = [], action) => {
 				...anec_to_add_vote, votes: anec_to_add_vote.votes + 1
 			}
 			return state.map(anec => anec.id !== id ? anec : voted_anec);
+			*/
+			const id = action.data.id;
+			const anecToSort = state.map(anec => anec.id !== id ? anec : action.data);
+			return sortAnecs(anecToSort);
 		default:
 			return state;
 	}
 }
 
 export const vote_for = (id) => {
-	return {
+
+	return async dispatch => {
+		const anecdotes = await anecdoteService.getAll();
+		const anecToVote = anecdotes.find(el => el.id === id);
+		const votedAnec = { ...anecToVote, votes: anecToVote.votes + 1 }
+		const updatedAnec = await anecdoteService.updateAnec(id, votedAnec);
+
+		dispatch({
+			type: 'VOTE',
+			data: updatedAnec
+		})
+	}
+
+	/*return {
 		type: 'VOTE',
 		data: { id }
 	}
+	*/
+
 }
 
 export const newAnec = (content) => {
 	return async dispatch => {
 		const newAnecdote = await anecdoteService.createNew(content);
 		dispatch({
-			type : 'NEW_ANECDOTE',
-			data : newAnecdote
+			type: 'NEW_ANECDOTE',
+			data: newAnecdote
 		});
 	}
 }
@@ -48,7 +65,7 @@ export const newAnec = (content) => {
 export const initializeState = () => {
 	return async dispatch => {
 		const anecdotes = await anecdoteService.getAll();
-		 dispatch({
+		dispatch({
 			type: 'INIT_ANECDOTES',
 			data: anecdotes
 		})
