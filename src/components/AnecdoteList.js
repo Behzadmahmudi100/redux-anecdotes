@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { vote_for } from '../reducers/anecdoteReducer';
-
-//imported from the notification component
 import { show_notification } from '../reducers/notificationReducer';
-import anecdotes from '../services/anecdotes';
 
 const AnecdoteList = (props) => {
 
     const vote = (id, content) => {
-        ///dispatch(vote_for(id));
-        //dispatch(show_notification(`you voted for ${content}`, 5));
+        props.vote_for(id);
+        props.show_notification(`you voted for ${content}`, 5);
     }
 
     return (
@@ -39,12 +36,18 @@ const mapStateToProps = (state) => {
         }
     }
     return {
-        anecdotes: state.anecdotes.filter((anecdote) => { return anecdote.content.includes(state.filter) })
+        anecdotes: state.anecdotes.filter((anecdote) => { return anecdote.content.toLowerCase().includes(state.filter) })
     }
 }
 
+const mapDispatchToProps = {
+    vote_for,
+    show_notification
+} 
+
 const ConnectedAnecdotes = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(AnecdoteList);
 
 export default ConnectedAnecdotes;
