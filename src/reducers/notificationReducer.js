@@ -9,10 +9,25 @@ const notificationReducer = (state = null, action) => {
     }
 }
 
-export const show_notification = (message) => {
-    return {
-        type: 'SET_NOTIFICATION',
-        data: message
+let timeoutID;
+
+export const show_notification = (message, time) => {
+    return async dispatch => {
+        dispatch({
+            type: 'SET_NOTIFICATION',
+            data: message
+        });
+
+        setTimeout(() => {
+            if (timeoutID) {
+                clearTimeout(timeoutID);
+            }
+
+            timeoutID = setTimeout(() => {
+                dispatch(hide_notification())
+            }, time);
+            
+        }, time * 1000);
     }
 }
 
@@ -22,4 +37,5 @@ export const hide_notification = () => {
         data: null
     }
 }
+
 export default notificationReducer;
